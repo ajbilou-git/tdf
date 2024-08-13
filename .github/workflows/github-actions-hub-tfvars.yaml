@@ -38,7 +38,7 @@ jobs:
       working-directory: ./hub
 
     - name: Terraform Plan
-      run: terraform plan -out=tfplan
+      run: terraform plan -var-file=environments/hub.tfvars -out=tfplan
       working-directory: ./hub
 
     - name: Upload Terraform Plan

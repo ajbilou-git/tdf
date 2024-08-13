@@ -33,7 +33,7 @@ jobs:
       working-directory: ./spok
 
     - name: Terraform Plan
-      run: terraform plan -out=tfplan
+      run: terraform plan -var-file=environments/spoke.tfvars -out=tfplan
       working-directory: ./spok
 
     - name: Upload Terraform Plan
