@@ -1,14 +1,17 @@
-name: Terraform Apply - Spoke
+# github-action/hub-workflow.yml
+
+name: Terraform Hub
 
 on:
   push:
     branches:
       - main
     paths:
-      - 'spoke/**'
+      - 'hub/**'
+  workflow_dispatch:
 
 jobs:
-  terraform:
+  terraform-plan:
     runs-on: ubuntu-latest
     
     steps:
@@ -23,15 +26,45 @@ jobs:
           -backend-config="resource_group_name=tdtfstate" \
           -backend-config="storage_account_name=tdtfstatestorage" \
           -backend-config="container_name=tfstate" \
-          -backend-config="key=spoke.tfstate"
-      working-directory: ./spoke
-      env:
-        ARM_SUBSCRIPTION_ID: "28e1e42a-4438-4c30-9a5f-7d7b488fd883"
-        ARM_TENANT_ID: "84f1e4ea-8554-43e1-8709-f0b8589ea118"
+          -backend-config="key=hub.tfstate"
+      working-directory: ./hub
+
+    - name: Terraform Plan
+      run: terraform plan -var-file=environments/dev.tfvars -out=tfplan
+      working-directory: ./hub
+
+    - name: Upload Terraform Plan
+      uses: actions/upload-artifact@v2
+      with:
+        name: tfplan
+        path: hub/tfplan
+
+  terraform-apply:
+    needs: terraform-plan
+    runs-on: ubuntu-latest
+    environment: production
+    
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
+
+    - name: Terraform Init
+      run: |
+        terraform init \
+          -backend-config="resource_group_name=tdtfstate" \
+          -backend-config="storage_account_name=tdtfstatestorage" \
+          -backend-config="container_name=tfstate" \
+          -backend-config="key=hub.tfstate"
+      working-directory: ./hub
+
+    - name: Download Terraform Plan
+      uses: actions/download-artifact@v2
+      with:
+        name: tfplan
+        path: hub
 
     - name: Terraform Apply
-      run: terraform apply -var-file=environments/dev.tfvars
-      working-directory: ./spoke
-      env:
-        ARM_SUBSCRIPTION_ID: "28e1e42a-4438-4c30-9a5f-7d7b488fd883"
-        ARM_TENANT_ID: "84f1e4ea-8554-43e1-8709-f0b8589ea118"
+      run: terraform apply -auto-approve tfplan
+      working-directory: ./hub
