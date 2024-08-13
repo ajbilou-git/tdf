@@ -49,6 +49,11 @@ jobs:
     
     steps:
     - uses: actions/checkout@v2
+    
+    - name: Azure CLI Login
+      run: |
+        az login --use-device-code
+        az account set --subscription "9734ed68-621d-47ed-babd-269110dbacb1"
 
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
