@@ -24,15 +24,15 @@ jobs:
       run: |
         az login --use-device-code
         az account set --subscription "9734ed68-621d-47ed-babd-269110dbacb1"
-        
+
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
 
     - name: Terraform Init
       run: |
         terraform init \
-          -backend-config="resource_group_name=tdtfstate" \
-          -backend-config="storage_account_name=tdtfstatestorage" \
+          -backend-config="resource_group_name=1-7a15c9ff-playground-sandbox" \
+          -backend-config="storage_account_name=tdtfstate" \
           -backend-config="container_name=tfstate" \
           -backend-config="key=hub.tfstate"
       working-directory: ./hub

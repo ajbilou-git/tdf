@@ -10,5 +10,4 @@ tags = {
   Environment = "Development"
   Project     = "Hub-and-Spoke"
 }
-hub_vnet_name            = "hub-network-dev"
-hub_resource_group_name  = "hub-resources-dev"
+
