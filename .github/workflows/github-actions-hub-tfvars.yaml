@@ -14,7 +14,7 @@ jobs:
   terraform-plan:
     runs-on: ubuntu-latest
     env:
-      ARM_SUBSCRIPTION_ID: "9734ed68-621d-47ed-babd-269110dbacb1"
+      ARM_SUBSCRIPTION_ID: "28e1e42a-4438-4c30-9a5f-7d7b488fd883"
       ARM_TENANT_ID: "84f1e4ea-8554-43e1-8709-f0b8589ea118"
     
     steps:
@@ -23,10 +23,12 @@ jobs:
     - name: Azure CLI Login
       run: |
         az login --use-device-code
-        az account set --subscription "9734ed68-621d-47ed-babd-269110dbacb1"
+        az account set --subscription "28e1e42a-4438-4c30-9a5f-7d7b488fd883"
 
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
+      with:
+          terraform_version: 1.5.7
 
     - name: Terraform Init
       run: |

@@ -4,14 +4,15 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "~> 2.65"
+      version = "~> 3.0"  # Utilisez la version la plus récente compatible avec Terraform 1.5.x
     }
   }
-  backend "azurerm" {}
+  required_version = ">= 1.5.0"
 }
 
 provider "azurerm" {
   features {}
+  skip_provider_registration = true
 }
 
 data "azurerm_virtual_network" "hub_vnet" {
