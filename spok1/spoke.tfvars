@@ -1,6 +1,6 @@
 # spoke/environments/dev.tfvars
 
-spoke_location           = "East US"
+location           = "East US"
 spoke_resource_group_name = "1-5bf614be-playground-sandbox"
 spoke_vnet_name          = "spoke-network-dev"
 spoke_vnet_address_space = ["10.1.0.0/16"]

@@ -1,6 +1,6 @@
 # hub/variables.tf
 
-variable "hub_location" {
+variable "location" {
   description = "The Azure region where the hub resources will be created"
   type        = string
 }

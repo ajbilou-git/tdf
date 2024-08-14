@@ -1,6 +1,6 @@
 # spoke/variables.tf
 
-variable "spoke_location" {
+variable "location" {
   description = "The Azure region where the spoke resources will be created"
   type        = string
 }

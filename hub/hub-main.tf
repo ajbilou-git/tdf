@@ -19,7 +19,7 @@ provider "azurerm" {
 resource "azurerm_virtual_network" "hub_vnet" {
   name                = var.hub_vnet_name
   address_space       = var.hub_vnet_address_space
-  location            = azurerm_resource_group.hub_rg.location
+  location            = var.location
   resource_group_name = var.hub_resource_group_name
   tags                = var.tags
 }
@@ -33,7 +33,7 @@ resource "azurerm_subnet" "hub_fw_subnet" {
 
 resource "azurerm_public_ip" "hub_fw_ip" {
   name                = "hub-firewall-ip"
-  location            = azurerm_resource_group.hub_rg.location
+  location            = var.location
   resource_group_name = var.hub_resource_group_name
   allocation_method   = "Static"
   sku                 = "Standard"
@@ -42,7 +42,7 @@ resource "azurerm_public_ip" "hub_fw_ip" {
 
 resource "azurerm_firewall" "hub_fw" {
   name                = "hub-firewall"
-  location            = azurerm_resource_group.hub_rg.location
+  location            = var.location
   resource_group_name = var.hub_resource_group_name
   sku_name            = var.firewall_sku_name
   sku_tier            = var.firewall_sku_tier

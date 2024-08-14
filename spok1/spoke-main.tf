@@ -24,7 +24,7 @@ data "azurerm_virtual_network" "hub_vnet" {
 resource "azurerm_virtual_network" "spoke_vnet" {
   name                = var.spoke_vnet_name
   address_space       = var.spoke_vnet_address_space
-  location            = azurerm_resource_group.spoke_rg.location
+  location            = var.location
   resource_group_name = var.spoke_resource_group_name
   tags                = var.tags
 }
