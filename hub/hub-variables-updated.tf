@@ -34,3 +34,16 @@ variable "tags" {
   description = "A map of tags to add to all resources"
   type        = map(string)
 }
+
+
+variable "firewall_sku_name" {
+  description = "SKU name of the Firewall. Possible values are AZFW_Hub and AZFW_VNet."
+  type        = string
+  default     = "AZFW_VNet"
+}
+
+variable "firewall_sku_tier" {
+  description = "SKU tier of the Firewall. Possible values are Standard and Premium."
+  type        = string
+  default     = "Standard"
+}

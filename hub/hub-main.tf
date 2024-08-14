@@ -49,7 +49,8 @@ resource "azurerm_firewall" "hub_fw" {
   name                = "hub-firewall"
   location            = azurerm_resource_group.hub_rg.location
   resource_group_name = azurerm_resource_group.hub_rg.name
-  tags                = var.tags
+  sku_name            = var.firewall_sku_name
+  sku_tier            = var.firewall_sku_tier
 
   ip_configuration {
     name                 = "configuration"
