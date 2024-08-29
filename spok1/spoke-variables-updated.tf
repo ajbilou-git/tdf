@@ -10,6 +10,12 @@ variable "spoke_resource_group_name" {
   type        = string
 }
 
+variable "hub_resource_group_name" {
+  description = "The name of the resource group for the spoke"
+  type        = string
+}
+
+
 variable "spoke_vnet_name" {
   description = "The name of the spoke virtual network"
   type        = string
