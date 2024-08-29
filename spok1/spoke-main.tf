@@ -15,9 +15,14 @@ provider "azurerm" {
   skip_provider_registration = true
 }
 
-data "azurerm_virtual_network" "hub_vnet" {
-  name                = var.hub_vnet_name
-  resource_group_name = var.spoke_resource_group_name
+data "terraform_remote_state" "hub" {
+  backend = "azurerm"
+  config = {
+    resource_group_name  = "1-a8788bf6-playground-sandbox"
+    storage_account_name = "tdftfstate"
+    container_name       = "tfstate"
+    key                  = "hub.tfstate"
+  }
 }
 
 
@@ -40,12 +45,12 @@ resource "azurerm_virtual_network_peering" "spoke_to_hub" {
   name                      = "spoke-to-hub"
   resource_group_name       = var.spoke_resource_group_name
   virtual_network_name      = azurerm_virtual_network.spoke_vnet.name
-  remote_virtual_network_id = data.azurerm_virtual_network.hub_vnet.id
+  remote_virtual_network_id = data.terraform_remote_state.hub.outputs.hub_vnet_id
 }
 
 resource "azurerm_virtual_network_peering" "hub_to_spoke" {
   name                      = "hub-to-spoke"
-  resource_group_name       = var.spoke_resource_group_name
-  virtual_network_name      = data.azurerm_virtual_network.hub_vnet.name
+  resource_group_name       = data.terraform_remote_state.hub.outputs.hub_resource_group_name
+  virtual_network_name      = data.terraform_remote_state.hub.outputs.hub_vnet_name
   remote_virtual_network_id = azurerm_virtual_network.spoke_vnet.id
 }

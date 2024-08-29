@@ -35,8 +35,4 @@ variable "tags" {
   type        = map(string)
 }
 
-variable "hub_vnet_name" {
-  description = "The name of the hub virtual network"
-  type        = string
-}
 
