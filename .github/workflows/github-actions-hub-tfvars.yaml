@@ -39,6 +39,13 @@ jobs:
           -backend-config="key=hub.tfstate"
       working-directory: ./hub
 
+    - name: Terraform Import
+      run: |
+        terraform import \
+         azurerm_virtual_network.spoke_vnet \
+        /subscriptions/80ea84e8-afce-4851-928a-9e2219724c69/resourceGroups/1-a8788bf6-playground-sandbox/providers/Microsoft.Network/virtualNetworks/hub-network-dev
+      working-directory: ./spoke
+
     - name: Terraform Plan
       run: terraform plan -var-file=hub.tfvars -out=tfplan
       working-directory: ./hub
