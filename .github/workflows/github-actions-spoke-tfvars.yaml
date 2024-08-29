@@ -34,7 +34,7 @@ jobs:
         terraform init \
           -backend-config="resource_group_name=1-a8788bf6-playground-sandbox" \
           -backend-config="storage_account_name=tdftfstate" \
-          -backend-config="container_name=tfstate" \
+          -backend-config="container_name=tfstatespoke1" \
           -backend-config="key=spoke.tfstate"
       working-directory: ./spok1
 
@@ -69,7 +69,7 @@ jobs:
         terraform init \
           -backend-config="resource_group_name=1-a8788bf6-playground-sandbox" \
           -backend-config="storage_account_name=tdtfstate" \
-          -backend-config="container_name=tfstate" \
+          -backend-config="container_name=tfstatespoke1" \
           -backend-config="key=spoke.tfstate"
       working-directory: ./spok1
 
