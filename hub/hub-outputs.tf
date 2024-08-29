@@ -1,8 +1,5 @@
 # hub/outputs.tf
 
-output "hub_resource_group_name" {
-  value = azurerm_resource_group.hub_rg.name
-}
 
 output "hub_vnet_id" {
   value = azurerm_virtual_network.hub_vnet.id

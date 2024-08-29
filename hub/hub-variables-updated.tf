@@ -5,10 +5,6 @@ variable "location" {
   type        = string
 }
 
-variable "hub_resource_group_name" {
-  description = "The name of the resource group for the hub"
-  type        = string
-}
 
 variable "hub_vnet_name" {
   description = "The name of the hub virtual network"

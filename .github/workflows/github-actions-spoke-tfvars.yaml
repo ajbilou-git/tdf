@@ -5,35 +5,35 @@ name: Terraform Spoke
 on:
   push:
     branches:
-      - main
+    - main
     paths:
-      - 'spok/**'
+    - 'spok/**'
   workflow_dispatch:
 
 jobs:
   terraform-plan:
     runs-on: ubuntu-latest
     env:
-      ARM_SUBSCRIPTION_ID: "28e1e42a-4438-4c30-9a5f-7d7b488fd883"
+      ARM_SUBSCRIPTION_ID: "80ea84e8-afce-4851-928a-9e2219724c69"
       ARM_TENANT_ID: "84f1e4ea-8554-43e1-8709-f0b8589ea118"
-    
+
     steps:
     - uses: actions/checkout@v2
     - name: Azure CLI Login
       run: |
         az login --use-device-code
-        az account set --subscription "28e1e42a-4438-4c30-9a5f-7d7b488fd883"
+        az account set --subscription "80ea84e8-afce-4851-928a-9e2219724c69"
 
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
       with:
-          terraform_version: 1.5.7
+        terraform_version: 1.5.7
 
     - name: Terraform Init
       run: |
         terraform init \
-          -backend-config="resource_group_name=tdtfstate" \
-          -backend-config="storage_account_name=tdtfstatestorage" \
+          -backend-config="resource_group_name=1-a8788bf6-playground-sandbox" \
+          -backend-config="storage_account_name=tdftfstate" \
           -backend-config="container_name=tfstate" \
           -backend-config="key=spoke.tfstate"
       working-directory: ./spok1
@@ -52,14 +52,14 @@ jobs:
     needs: terraform-plan
     runs-on: ubuntu-latest
     environment: production
-    
+
     steps:
     - uses: actions/checkout@v2
 
     - name: Azure CLI Login
       run: |
         az login --use-device-code
-        az account set --subscription "28e1e42a-4438-4c30-9a5f-7d7b488fd883"
+        az account set --subscription "80ea84e8-afce-4851-928a-9e2219724c69"
 
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
@@ -67,7 +67,7 @@ jobs:
     - name: Terraform Init
       run: |
         terraform init \
-          -backend-config="resource_group_name=1-7a15c9ff-playground-sandbox" \
+          -backend-config="resource_group_name=1-a8788bf6-playground-sandbox" \
           -backend-config="storage_account_name=tdtfstate" \
           -backend-config="container_name=tfstate" \
           -backend-config="key=spoke.tfstate"
