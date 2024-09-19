@@ -4,7 +4,7 @@ on: push
 
 jobs: 
   init:
-    run-on: self-hosted
+    runs-on: self-hosted
     steps: 
       - run: echo'feeeen'
       - run: ech $HOSTNAME
