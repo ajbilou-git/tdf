@@ -1,0 +1,10 @@
+name: Must run on custom runner
+
+on: push
+
+jobs: 
+  init:
+    run-on: self-hosted
+    steps: 
+      - run: echo'feeeen'
+      - run: ech $HOSTNAME
