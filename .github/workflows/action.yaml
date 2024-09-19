@@ -7,4 +7,4 @@ jobs:
     runs-on: self-hosted
     steps: 
       - run: echo 'feeeen'
-      - run: ech $HOSTNAME
+      - run: echo $HOSTNAME
